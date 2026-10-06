@@ -15,7 +15,6 @@ return new class extends Migration
             $table->string('key')->primary();
             $table->mediumText('value');
             $table->bigInteger('expiration')->index();
-         
 
         });
 

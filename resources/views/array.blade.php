@@ -15,6 +15,7 @@
         <nav>
             <a href="{{ route('home') }}">Главная</a>
             <a href="{{ route('array') }}">Массивы</a>
+            <a href="{{ route('reports.index') }}">Заявки</a>
         </nav>
     </header>
 

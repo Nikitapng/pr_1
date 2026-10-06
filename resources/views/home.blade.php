@@ -15,11 +15,12 @@
         <nav>
             <a href="{{ route('home') }}">Главная</a>
             <a href="{{ route('array') }}">Массивы</a>
+            <a href="{{ route('reports.index') }}">Заявки</a>
         </nav>
     </header>
 
     <main>
-        <div class="card">
+        <div class="card card-horizontal">
             <img src="{{ Vite::asset('resources/images/img3.png') }}" alt="Картинка">
             <div class="card-text">
                 <h1>Добро пожаловать!</h1>
