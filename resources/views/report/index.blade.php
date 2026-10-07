@@ -27,35 +27,34 @@
 
         <div class="card">
             @if ($reports->isEmpty())
-                <p>Заявок пока нет. Вы можете <a href="{{ route('reports.create') }}" class="btn-link">создать первую заявку</a>.</p>
+            <p>Заявок пока нет. Вы можете <a href="{{ route('reports.create') }}" class="btn-link">создать первую заявку</a>.</p>
             @else
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Название / Артикул иконки</th>
-                            <th>Описание</th>
-                            <th>Действие</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($reports as $report)
-                            <tr>
-                                <td>{{ $report->id }}</td>
-                                <td class="font-medium">{{ $report->number }}</td>
-                                <td>{{ $report->description }}</td>
-                                <td>
-                                    <a href="{{ route('reports.edit', $report->id) }}" class="btn btn-primary btn-sm">Редактировать</a>
-                                    <form method="POST" action="{{ route('reports.destroy', $report->id) }}" class="inline-block">
-                                        @method('delete')
-                                        @csrf
-                                        <input type="submit" value="Удалить" class="btn btn-danger btn-sm">
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Название / Артикул иконки</th>
+                        <th>Описание</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($reports as $report)
+                    <tr>
+                        <td>{{ $report->id }}</td>
+                        <td class="font-medium">{{ $report->number }}</td>
+                        <td>{{ $report->description }}</td>
+                        <td>
+                            <a href="{{ route('reports.edit', $report->id) }}" class="btn btn-primary btn-sm">Редактировать</a>
+                            <form method="POST" action="{{ route('reports.destroy', $report->id) }}" class="inline-block">
+                                @method('delete')
+                                @csrf
+                                <input type="submit" value="Удалить" class="btn btn-danger btn-sm">
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
             @endif
         </div>
     </main>
