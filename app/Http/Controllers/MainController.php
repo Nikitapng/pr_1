@@ -38,14 +38,20 @@ class MainController extends Controller
     public function sortArray()
     {
         $array = $this->products;
-        usort($array, fn ($a, $b) => $a['price'] <=> $b['price']);
+
+        $prices = array_column($array, 'price');
+
+        array_multisort($prices, SORT_ASC, $array);
 
         return view('array', compact('array'));
     }
 
+
+
+
     public function filterArray()
     {
-        $array = array_values(array_filter($this->products, fn ($item) => $item['price'] > 500));
+        $array = array_values(array_filter($this->products, fn($item) => $item['price'] > 500));
 
         return view('array', compact('array'));
     }

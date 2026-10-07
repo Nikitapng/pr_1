@@ -21,7 +21,12 @@ class ReportController extends Controller
 
     public function store(Request $request)
     {
-        Report::create($request->all());
+        $data = $request->validate([
+            'number' => 'string',
+            'description' => 'string',
+        ]);
+
+        Report::create($data);
 
         return redirect()->route('reports.index');
     }
@@ -33,7 +38,12 @@ class ReportController extends Controller
 
     public function update(Request $request, Report $report)
     {
-        $report->update($request->all());
+        $data = $request->validate([
+            'number' => 'string',
+            'description' => 'string',
+        ]);
+
+        $report->update($data);
 
         return redirect()->route('reports.index');
     }
