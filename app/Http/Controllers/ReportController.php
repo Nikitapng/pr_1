@@ -49,7 +49,6 @@ class ReportController extends Controller
         $data['user_id'] = Auth::user()->id;
         $data['status_id'] = 1;
 
-
         Report::create($data);
 
         return redirect()->route('reports.index');
@@ -86,6 +85,21 @@ class ReportController extends Controller
         }
 
         $report->delete();
+
+        return redirect()->back();
+    }
+
+    public function updateStatus(Request $request, Report $report)
+    {
+        if ($report->status_id != 1) {
+            abort(403, 'Статус этой заявки уже изменен и не подлежит редактированию');
+        }
+
+        $request->validate([
+            'status_id' => 'required|exists:statuses,id',
+        ]);
+
+        $report->update($request->only('status_id'));
 
         return redirect()->back();
     }

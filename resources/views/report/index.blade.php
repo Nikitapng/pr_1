@@ -41,7 +41,7 @@
                         <td class="font-medium">{{ $report->number }}</td>
                         <td>{{ $report->description }}</td>
                         <td>
-                            <span class="badge">{{ $report->status->name ?? 'Нет статуса' }}</span>
+                            <span class="badge badge-status-{{ $report->status_id }}">{{ $report->status->name ?? 'Нет статуса' }}</span>
                         </td>
                         <td class="text-muted text-nowrap">
                             {{ $report->created_at ? $report->created_at->format('d.m.Y H:i') : '—' }}

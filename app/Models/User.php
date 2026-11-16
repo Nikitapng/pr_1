@@ -24,8 +24,16 @@ class User extends Authenticatable
         'tel',
         'login',
     ];
+
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+    const ADMIN_ROLE = 'admin';
+
+    public function isAdmin()
+    {
+        return $this->role === self::ADMIN_ROLE;
+    }
 
     /**
      * Get the attributes that should be cast.

@@ -21,6 +21,9 @@
                 <a href="{{ route('home') }}">Главная</a>
                 <a href="{{ route('array') }}">Массивы</a>
                 <a href="{{ route('reports.index') }}">Заявки</a>
+                @if (Auth::check() && Auth::user()->isAdmin())
+                    <a href="{{ route('admin.index') }}">Админ</a>
+                @endif
 
                 @auth
                     <x-dropdown align="right" width="48">

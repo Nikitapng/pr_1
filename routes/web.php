@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReportController;
+use App\Http\Middleware\Admin;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'showIndex'])->name('home');
 
@@ -24,9 +26,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
 });
 
+Route::middleware(Admin::class)->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::patch('/reports/status/{report}', [ReportController::class, 'updateStatus'])->name('reports.status.update');
+});
+
 Route::get('/array', [MainController::class, 'showArray'])->name('array');
 Route::get('/array/shuffle', [MainController::class, 'shuffleArray'])->name('array.shuffle');
 Route::get('/array/sort', [MainController::class, 'sortArray'])->name('array.sort');
 Route::get('/array/filter', [MainController::class, 'filterArray'])->name('array.filter');
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
