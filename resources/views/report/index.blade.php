@@ -42,7 +42,8 @@
                             </x-status>
                         </td>
                         <td class="text-muted text-nowrap">
-                            {{ $report->created_at ? $report->created_at->format('d.m.Y H:i') : '—' }}
+                            
+                            {{\Carbon\Carbon::parse($report->created_at)->translatedFormat('j F Y h:i');}}
                         </td>
                         <td>
                             <div class="table-actions">

@@ -23,6 +23,7 @@
         @endisset
 
         <main>
+            @include('layouts.flash-messages')
             {{ $slot }}
         </main>
 

@@ -11,10 +11,34 @@
                 <label for="number">Выберите иконку:</label>
                 <select id="number" name="number" class="form-control" required>
                     <option value="" disabled selected>Выберите иконку из каталога</option>
-        @foreach ($icons as $icon)
-            <option value="{{ $icon['title'] }}">{{ $icon['title'] }} ({{ $icon['price'] }} кб)</option>
-        @endforeach
-    </select>
+                    @foreach ($icons as $icon)
+                        <option value="{{ $icon['title'] }}">{{ $icon['title'] }} ({{ $icon['price'] }} кб)</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Поле с динамической маской Alpine Mask (Вариант А) -->
+            <div x-data="{ country: 'ru' }" class="form-group">
+                <label>Контактный телефон заявителя:</label>
+                
+                <div class="flex items-center gap-4 mb-1">
+                    <label class="inline-flex items-center gap-1 cursor-pointer text-sm text-gray-700">
+                        <input type="radio" value="ru" x-model="country">
+                        <span>🇷🇺 РФ (+7)</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1 cursor-pointer text-sm text-gray-700">
+                        <input type="radio" value="by" x-model="country">
+                        <span>🇧🇾 РБ (+375)</span>
+                    </label>
+                </div>
+
+                <input 
+                    type="tel" 
+                    name="phone"
+                    x-mask:dynamic="country === 'ru' ? '+7 (999) 999-99-99' : '+375 (99) 999-99-99'"
+                    :placeholder="country === 'ru' ? '+7 (999) 999-99-99' : '+375 (29) 123-45-67'"
+                    class="form-control"
+                >
             </div>
 
             <div class="form-group">

@@ -20,6 +20,6 @@ class Admin
             return $next($request);
         }
 
-        return redirect('login')->with('error', 'Вы не авторизованы');
+        return redirect()->route('home')->with('error', 'У вас нет прав для доступа к панели администратора.');
     }
 }
