@@ -9,8 +9,14 @@
             @csrf
             @method('put')
             <div class="form-group">
-                <label for="number">Название / Артикул иконки:</label>
-                <input type="text" id="number" name="number" value="{{ $report->number }}" placeholder="Например: Иконка настроек / settings-01" class="form-control" required>
+                <label for="number">Выберите иконку:</label>
+                <select id="number" name="number" class="form-control" required>
+                    @foreach ($icons as $icon)
+                        <option value="{{ $icon['title'] }}" @selected($report->number === $icon['title'])>
+                            {{ $icon['title'] }} ({{ $icon['price'] }} кб)
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">

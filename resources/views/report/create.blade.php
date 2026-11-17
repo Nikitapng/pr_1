@@ -8,8 +8,13 @@
         <form action="{{ route('reports.store') }}" method="POST" class="form">
             @csrf
             <div class="form-group">
-                <label for="number">Название / Артикул иконки:</label>
-                <input type="text" id="number" name="number" class="form-control" required>
+                <label for="number">Выберите иконку:</label>
+                <select id="number" name="number" class="form-control" required>
+                    <option value="" disabled selected>Выберите иконку из каталога</option>
+        @foreach ($icons as $icon)
+            <option value="{{ $icon['title'] }}">{{ $icon['title'] }} ({{ $icon['price'] }} кб)</option>
+        @endforeach
+    </select>
             </div>
 
             <div class="form-group">

@@ -8,21 +8,7 @@
         @if ($reports->isEmpty())
         <p>Заявок пока нет. Вы можете <a href="{{ route('reports.create') }}" class="btn-link">создать первую заявку</a>.</p>
         @else
-        <div class="filters-panel">
-            <div class="filters-row">
-                <span class="filters-label">Сортировка:</span>
-                <a href="{{ route('reports.index', ['sort' => 'desc', 'status' => $status]) }}" class="filter-btn @if($sort === 'desc') active @endif">Сначала новые</a>
-                <a href="{{ route('reports.index', ['sort' => 'asc', 'status' => $status]) }}" class="filter-btn @if($sort === 'asc') active @endif">Сначала старые</a>
-            </div>
-
-            <div class="filters-row">
-                <span class="filters-label">Фильтрация:</span>
-                <a href="{{ route('reports.index', ['sort' => $sort]) }}" class="filter-btn @if(!$status) active @endif">Все</a>
-                @foreach ($statuses as $item)
-                <a href="{{ route('reports.index', ['status' => $item->id, 'sort' => $sort]) }}" class="filter-btn @if($status == $item->id) active @endif">{{ $item->name }}</a>
-                @endforeach
-            </div>
-        </div>
+        <x-filter :sort="$sort" :status="$status" />
 
         <div class="table-responsive">
             <table class="table">
@@ -37,11 +23,23 @@
                 </thead>
                 <tbody>
                     @foreach ($reports as $report)
+                    @php
+                        $iconItem = collect($icons)->firstWhere('title', $report->number);
+                    @endphp
                     <tr>
-                        <td class="font-medium">{{ $report->number }}</td>
+                        <td class="font-medium">
+                            <div class="flex items-center gap-2">
+                                @if ($iconItem)
+                                    <img src="{{ Vite::asset('resources/images/' . $iconItem['path']) }}" alt="{{ $report->number }}" style="width: 20px; height: 20px;" class="object-contain inline-block shrink-0">
+                                @endif
+                                <span>{{ $report->number }}</span>
+                            </div>
+                        </td>
                         <td>{{ $report->description }}</td>
                         <td>
-                            <span class="badge badge-status-{{ $report->status_id }}">{{ $report->status->name ?? 'Нет статуса' }}</span>
+                            <x-status :type="$report->status_id">
+                                {{ $report->status->name ?? 'Новый' }}
+                            </x-status>
                         </td>
                         <td class="text-muted text-nowrap">
                             {{ $report->created_at ? $report->created_at->format('d.m.Y H:i') : '—' }}

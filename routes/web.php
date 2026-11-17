@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'showIndex'])->name('home');
 
+Route::get('/index', function () {
+    return view('index');
+});
+
+Route::get('/second', function () {
+    return view('second');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

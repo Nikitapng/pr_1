@@ -30,13 +30,16 @@ class ReportController extends Controller
         }
 
         $statuses = Status::all();
+        $icons = (new MainController())->products;
 
-        return view('report.index', compact('reports', 'statuses', 'sort', 'status'));
+        return view('report.index', compact('reports', 'statuses', 'sort', 'status', 'icons'));
     }
 
     public function create()
     {
-        return view('report.create');
+        $icons = (new MainController())->products;
+
+        return view('report.create', compact('icons'));
     }
 
     public function store(Request $request)
@@ -57,7 +60,9 @@ class ReportController extends Controller
     public function edit(Report $report)
     {
         if ($report->user_id == Auth::user()->id) {
-            return view('report.edit', compact('report'));
+            $icons = (new MainController())->products;
+
+            return view('report.edit', compact('report', 'icons'));
         } else {
             abort(403, 'у вас нет прав на редактирование этой заявки');
         }
